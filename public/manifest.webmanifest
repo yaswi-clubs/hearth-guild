@@ -1,0 +1,16 @@
+{
+  "name": "Hearth Guild",
+  "short_name": "Hearth Guild",
+  "description": "Your household is a guild. Chores are attacks. Beat the boss by Sunday.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2c4a3a",
+  "theme_color": "#2c4a3a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
