@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // One document per household. The document id is the guild code; there is no way to list guilds,
+    // so only someone who has the code can find one. Devices that joined are recorded in `devices`.
+    match /households/{hid} {
+      allow get: if request.auth != null;
+      allow list: if false;
+      allow create: if request.auth != null
+        && request.resource.data.devices[request.auth.uid] == true
+        && request.resource.size() < 900000;
+      // Members can change anything; a new device may only add itself to `devices` (joining).
+      allow update: if request.auth != null && (
+        resource.data.devices[request.auth.uid] == true
+        || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['devices'])
+            && request.resource.data.devices[request.auth.uid] == true)
+      );
+      allow delete: if false;
+    }
+  }
+}
